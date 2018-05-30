@@ -19,7 +19,7 @@ public class Info_Tab_Layout extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info__tab__layout);
+        setContentView(R.layout.activity_info_tab_layout);
         vPager = findViewById(R.id.viewPager);
         fragAdapt = new SampleFragmentPagerAdapter(getSupportFragmentManager());
         vPager.setAdapter(fragAdapt);

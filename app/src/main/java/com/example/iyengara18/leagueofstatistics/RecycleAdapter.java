@@ -7,22 +7,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecycleAdapter extends AppCompatActivity {
-    private CourseAdapter mAdapter;
     private RecyclerView mRecyclerView;
+    private MatchAdapter matchAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_match_history);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycle);
+        mRecyclerView = findViewById(R.id.recycle);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         updateUI();
@@ -30,57 +29,45 @@ public class RecycleAdapter extends AppCompatActivity {
 
     private void updateUI(){
         List<MatchHistoryInfo> matches = new ArrayList<>();
-        matches.add(new MatchHistoryInfo("Victory", "Fiddlesticks", 10));
-        mAdapter = new CourseAdapter((List)matches);
-        mRecyclerView.setAdapter(mAdapter);
+        matches.add(new MatchHistoryInfo("Victory", "Fiddlesticks", 9));
+        matches.add(new MatchHistoryInfo("Defeat", "Malphite", 3));
+        matches.add(new MatchHistoryInfo("Victory", "Darius", 12));
+        matchAdapter = new MatchAdapter(matches);
+        mRecyclerView.setAdapter(matchAdapter);
     }
 
-    private class CourseHolder extends RecyclerView.ViewHolder{
-        private TextView mCourseTitleTextView;
-        private TextView mCourseInstructorTextView;
-        private ImageView mCourseImageView;
-        private Course mCourse;
+    private class MatchHolder extends RecyclerView.ViewHolder{
+        public TextView mMatchResultTextView;
 
-        public CourseHolder(View itemView){
+        public MatchHolder(View itemView){
             super(itemView);
-            mCourseTitleTextView = (TextView) itemView.findViewById(R.id.textViewCourseTitle);
-            mCourseInstructorTextView = (TextView) itemView.findViewById(R.id.textViewCourseInstructor);
-            mCourseImageView = (ImageView) itemView.findViewById(R.id.imageViewCourseImage);
-        }
-
-        public void bindCourse(Course course){
-            mCourse = course;
-            mCourseTitleTextView.setText(mCourse.getCourseTitle());
-            mCourseInstructorTextView.setText(mCourse.getCourseInstructor());
-            if(course.getCourseImageResourceId() > 0){
-                mCourseImageView.setImageResource(mCourse.getCourseImageResourceId());
-            }
+            mMatchResultTextView = (TextView) itemView;
         }
     }
 
-    private class CourseAdapter extends RecyclerView.Adapter<CourseHolder>{
-        private List<Course> mCourses;
+    private class MatchAdapter extends RecyclerView.Adapter<MatchHolder>{
+        private List<MatchHistoryInfo> mMatches;
 
-        public CourseAdapter(List<Course> courses){
-            mCourses = courses;
+        public MatchAdapter(List<MatchHistoryInfo> matches){
+            mMatches = matches;
         }
 
         @Override
-        public CourseHolder onCreateViewHolder(ViewGroup parent, int ViewType){
-            LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-            View view = layoutInflater.inflate(R.layout.list_item_course, parent, false);
-            return new CourseHolder(view);
+        public MatchHolder onCreateViewHolder(ViewGroup parent, int viewTyper){
+            LayoutInflater layoutInflater = LayoutInflater.from(RecycleAdapter.this);
+            View view = layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            return new MatchHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(CourseHolder holder, int position){
-            Course course = mCourses.get(position);
-            holder.bindCourse(course);
+        public void onBindViewHolder(MatchHolder holder,  int position){
+            MatchHistoryInfo matchHistoryInfo = mMatches.get(position);
+            holder.mMatchResultTextView.setText(matchHistoryInfo.getMatchResult());
         }
 
         @Override
         public int getItemCount(){
-            return mCourses.size();
+            return mMatches.size();
         }
     }
 }
