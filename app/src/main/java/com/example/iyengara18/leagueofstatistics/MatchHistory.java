@@ -50,11 +50,23 @@ public class MatchHistory extends Fragment {
     }
 
     private class MatchHolder extends RecyclerView.ViewHolder{
-        public TextView mMatchResultTextView;
+        private TextView mMatchResultTextView;
+        private TextView mChampionUsedTextView;
+        private TextView mKillsTextView;
+        private MatchHistoryInfo mMatchHistory;
 
         public MatchHolder(View itemView){
             super(itemView);
-            mMatchResultTextView = (TextView) itemView;
+            mMatchResultTextView = itemView.findViewById(R.id.matchResultView);
+            mChampionUsedTextView = itemView.findViewById(R.id.championView);
+            mKillsTextView = itemView.findViewById(R.id.killsView);
+        }
+
+        public void bindMatch(MatchHistoryInfo matchHistory){
+            mMatchHistory = matchHistory;
+            mMatchResultTextView.setText(mMatchHistory.getMatchResult());
+            mChampionUsedTextView.setText(mMatchHistory.getChampUsed());
+            mKillsTextView.setText(mMatchHistory.getKills()+"");
         }
     }
 
@@ -68,14 +80,14 @@ public class MatchHistory extends Fragment {
         @Override
         public MatchHolder onCreateViewHolder(ViewGroup parent, int viewTyper){
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-            View view = layoutInflater.inflate(android.R.layout.list_item_matches, parent, false);
+            View view = layoutInflater.inflate(R.layout.list_item_matches, parent, false);
             return new MatchHolder(view);
         }
 
         @Override
         public void onBindViewHolder(MatchHolder holder, int position){
             MatchHistoryInfo matchHistoryInfo = mMatches.get(position);
-            holder.mMatchResultTextView.setText(matchHistoryInfo.getMatchResult());
+            holder.bindMatch(matchHistoryInfo);
         }
 
         @Override

@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Match Result" />
+        android:text="Match Result"
+        android:layout_marginBottom="10sp"/>
 
     <TextView
         android:id="@+id/championView"
@@ -17,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/matchResultView"
         android:layout_centerHorizontal="true"
-        android:text="Champion Used" />
+        android:text="Champion Used"
+        android:layout_marginBottom="10sp"/>
 
     <TextView
         android:id="@+id/killsView"
@@ -25,7 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/championView"
         android:layout_centerHorizontal="true"
-        android:text="Kills" />
+        android:text="Kills"
+        android:layout_marginBottom="30sp"/>
 
 
 </RelativeLayout>
