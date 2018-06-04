@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,21 @@ public class MatchHistory extends Fragment {
 
     private void updateUI(){
         List<MatchHistoryInfo> matches = new ArrayList<>();
+        ArrayList itemsInNumber = new ArrayList();
+        itemsInNumber.add(3040);
+        itemsInNumber.add(3030);
+        itemsInNumber.add(3020);
+        itemsInNumber.add(3146);
+        itemsInNumber.add(3157);
+        itemsInNumber.add(null);
+        itemsInNumber.add(null);
+        ArrayList items = new ArrayList();
+        items.add("Zhonya's Hourglass");
+        items.add("Luden's Echo");
+        items.add("Sorcerer Boots");
+        items.add("Rod of Ages");
+        items.add(null);
+        items.add(null);
         matches.add(new MatchHistoryInfo("Victory", "Fiddlesticks", 9));
         matches.add(new MatchHistoryInfo("Defeat", "Malphite", 3));
         matches.add(new MatchHistoryInfo("Victory", "Darius", 12));

@@ -1,10 +1,13 @@
 package com.example.iyengara18.leagueofstatistics;
 
+import java.util.ArrayList;
+
 public class MatchHistoryInfo {
 
     private String mMatchResult;
     private String mChampUsed;
     private int mKills;
+    private ArrayList mItems = new ArrayList();
 
     public MatchHistoryInfo(String matchResult, String champUsed, int kills){
         mMatchResult = matchResult;
@@ -34,5 +37,13 @@ public class MatchHistoryInfo {
 
     public void setKills(int kills){
         mKills = kills;
+    }
+
+    public ArrayList getItems() {
+        return mItems;
+    }
+
+    public void setmItems(ArrayList items){
+        mItems = items;
     }
 }
