@@ -34,7 +34,6 @@
         android:id="@+id/itemOneView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="87dp"
         android:text="Item 1" />
@@ -44,15 +43,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/itemOneView"
-        android:layout_toEndOf="@+id/itemOneView"
+        android:layout_centerHorizontal="true"
         android:text="Item 2" />
 
     <TextView
         android:id="@+id/itemThreeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/itemOneView"
-        android:layout_toEndOf="@+id/itemTwoView"
         android:text="Item 3" />
 
     <TextView
@@ -60,14 +59,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/itemOneView"
-        android:layout_toEndOf="@+id/itemOneView"
+        android:layout_centerHorizontal="true"
         android:text="Item 4" />
 
     <TextView
         android:id="@+id/itemFiveView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/itemOneView"
         android:text="Item 5" />
 
@@ -75,8 +73,8 @@
         android:id="@+id/itemSixView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/itemOneView"
-        android:layout_toEndOf="@+id/itemTwoView"
         android:text="Item 6" />
 
 
