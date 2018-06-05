@@ -51,16 +51,16 @@ public class MatchHistory extends Fragment {
         itemsInNumber.add(3157);
         itemsInNumber.add(null);
         itemsInNumber.add(null);
-        ArrayList items = new ArrayList();
-        items.add("Zhonya's Hourglass");
-        items.add("Luden's Echo");
-        items.add("Sorcerer Boots");
-        items.add("Rod of Ages");
-        items.add(null);
-        items.add(null);
-        matches.add(new MatchHistoryInfo("Victory", "Fiddlesticks", 9));
-        matches.add(new MatchHistoryInfo("Defeat", "Malphite", 3));
-        matches.add(new MatchHistoryInfo("Victory", "Darius", 12));
+        String[] itemsName = new String[6];
+        itemsName[0]=("Zhonya's Hourglass");
+        itemsName[1]=("Luden's Echo");
+        itemsName[2]=("Sorcerer Boots");
+        itemsName[3]=("Rod of Ages");
+        itemsName[4]=("None");
+        itemsName[5]=("None");
+        matches.add(new MatchHistoryInfo("Victory", "Fiddlesticks", itemsName, 12));
+        matches.add(new MatchHistoryInfo("Defeat", "Malphite",  itemsName, 3));
+        matches.add(new MatchHistoryInfo("Defeat", "Darius", itemsName, 9));
         matchAdapter = new MatchAdapter(matches);
         mRecyclerView.setAdapter(matchAdapter);
     }
@@ -69,20 +69,39 @@ public class MatchHistory extends Fragment {
         private TextView mMatchResultTextView;
         private TextView mChampionUsedTextView;
         private TextView mKillsTextView;
+        private TextView itemOne;
+        private TextView itemTwo;
+        private TextView itemThree;
+        private TextView itemFour;
+        private TextView itemFive;
+        private TextView itemSix;
         private MatchHistoryInfo mMatchHistory;
 
         public MatchHolder(View itemView){
             super(itemView);
             mMatchResultTextView = itemView.findViewById(R.id.matchResultView);
             mChampionUsedTextView = itemView.findViewById(R.id.championView);
+            itemOne = itemView.findViewById((R.id.itemOneView));
+            itemTwo = itemView.findViewById((R.id.itemTwoView));
+            itemThree = itemView.findViewById((R.id.itemThreeView));
+            itemFour = itemView.findViewById((R.id.itemFourView));
+            itemFive = itemView.findViewById((R.id.itemFiveView));
+            itemSix = itemView.findViewById((R.id.itemSixView));
             mKillsTextView = itemView.findViewById(R.id.killsView);
         }
 
         public void bindMatch(MatchHistoryInfo matchHistory){
             mMatchHistory = matchHistory;
+            String[] itemsName = mMatchHistory.getItems();
             mMatchResultTextView.setText(mMatchHistory.getMatchResult());
             mChampionUsedTextView.setText(mMatchHistory.getChampUsed());
             mKillsTextView.setText(mMatchHistory.getKills()+"");
+            itemOne.setText(itemsName[0]);
+            itemTwo.setText(itemsName[1]);
+            itemThree.setText(itemsName[2]);
+            itemFour.setText(itemsName[3]);
+            itemFive.setText(itemsName[4]);
+            itemSix.setText(itemsName[5]);
         }
     }
 

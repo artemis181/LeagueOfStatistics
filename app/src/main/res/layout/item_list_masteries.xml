@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="40sp">
+
+    <TextView
+        android:id="@+id/champNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Champion Name" />
+
+    <TextView
+        android:id="@+id/champMasteryView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="Mastery Score" />
+
+    <TextView
+        android:id="@+id/champEpithetView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="40sp"
+        android:text="Epithet" />
+
+    <TextView
+        android:id="@+id/champPointsLeftView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/champEpithetView"
+        android:layout_centerHorizontal="true"
+        android:text="Points Left" />
+
 
 </RelativeLayout>
