@@ -18,6 +18,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ChampionMasteries extends Fragment {
+    private RecyclerView mRecyclerView;
+    private MasteryAdapter masteryAdapter;
 
 
     public ChampionMasteries() {
@@ -26,12 +28,11 @@ public class ChampionMasteries extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_champion_masteries, container, false);
-        mRecyclerView = rootView.findViewById(R.id.recycle);
+        mRecyclerView = rootView.findViewById(R.id.recyclered);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         updateUI();
@@ -40,92 +41,61 @@ public class ChampionMasteries extends Fragment {
     }
 
     private void updateUI(){
-        List<MatchHistoryInfo> matches = new ArrayList<>();
-        ArrayList itemsInNumber = new ArrayList();
-        itemsInNumber.add(3040);
-        itemsInNumber.add(3030);
-        itemsInNumber.add(3020);
-        itemsInNumber.add(3146);
-        itemsInNumber.add(3157);
-        itemsInNumber.add(null);
-        itemsInNumber.add(null);
-        String[] itemsName = new String[6];
-        itemsName[0]=("Zhonya's Hourglass");
-        itemsName[1]=("Luden's Echo");
-        itemsName[2]=("Sorcerer Boots");
-        itemsName[3]=("Rod of Ages");
-        itemsName[4]=("None");
-        itemsName[5]=("None");
-        matches.add(new MatchHistoryInfo("Victory", "Fiddlesticks", itemsName, 12));
-        matches.add(new MatchHistoryInfo("Defeat", "Malphite",  itemsName, 3));
-        matches.add(new MatchHistoryInfo("Defeat", "Darius", itemsName, 9));
-        matchAdapter = new MatchHistory.MatchAdapter(matches);
-        mRecyclerView.setAdapter(matchAdapter);
+        List<ChampMasteryInfo> mastery = new ArrayList<>();
+        mastery.add(new ChampMasteryInfo("Malphite", "Shard of the Monolith", 6, 0));
+        mastery.add(new ChampMasteryInfo("Vel'koz", "The Eye of the Void",  7, 0));
+        mastery.add(new ChampMasteryInfo("Leona", "The Radiant Dawn", 4, 374));
+        masteryAdapter = new MasteryAdapter(mastery);
+        mRecyclerView.setAdapter(masteryAdapter);
     }
 
-    private class MatchHolder extends RecyclerView.ViewHolder{
-        private TextView mMatchResultTextView;
-        private TextView mChampionUsedTextView;
-        private TextView mKillsTextView;
-        private TextView itemOne;
-        private TextView itemTwo;
-        private TextView itemThree;
-        private TextView itemFour;
-        private TextView itemFive;
-        private TextView itemSix;
-        private MatchHistoryInfo mMatchHistory;
+    private class MasteryHolder extends RecyclerView.ViewHolder{
+        private TextView mChampName;
+        private TextView mEpithet;
+        private TextView mMasteryScore;
+        private TextView mPoints;
+        private ChampMasteryInfo mChampMastery;
 
-        public MatchHolder(View itemView){
+        public MasteryHolder(View itemView){
             super(itemView);
-            mMatchResultTextView = itemView.findViewById(R.id.matchResultView);
-            mChampionUsedTextView = itemView.findViewById(R.id.championView);
-            itemOne = itemView.findViewById((R.id.itemOneView));
-            itemTwo = itemView.findViewById((R.id.itemTwoView));
-            itemThree = itemView.findViewById((R.id.itemThreeView));
-            itemFour = itemView.findViewById((R.id.itemFourView));
-            itemFive = itemView.findViewById((R.id.itemFiveView));
-            itemSix = itemView.findViewById((R.id.itemSixView));
-            mKillsTextView = itemView.findViewById(R.id.killsView);
+            mChampName = itemView.findViewById(R.id.champNameView);
+            mEpithet = itemView.findViewById(R.id.champEpithetView);
+            mMasteryScore = itemView.findViewById((R.id.champMasteryView));
+            mPoints = itemView.findViewById(R.id.champPointsLeftView);
         }
 
-        public void bindMatch(MatchHistoryInfo matchHistory){
-            mMatchHistory = matchHistory;
-            String[] itemsName = mMatchHistory.getItems();
-            mMatchResultTextView.setText(mMatchHistory.getMatchResult());
-            mChampionUsedTextView.setText(mMatchHistory.getChampUsed());
-            mKillsTextView.setText(mMatchHistory.getKills()+"");
-            itemOne.setText(itemsName[0]);
-            itemTwo.setText(itemsName[1]);
-            itemThree.setText(itemsName[2]);
-            itemFour.setText(itemsName[3]);
-            itemFive.setText(itemsName[4]);
-            itemSix.setText(itemsName[5]);
+        public void bindMastery(ChampMasteryInfo champMastery){
+            mChampMastery = champMastery;
+            mChampName.setText(mChampMastery.getName());
+            mEpithet.setText(mChampMastery.getEpithet());
+            mMasteryScore.setText(mChampMastery.getMastery()+"");
+            mPoints.setText(mChampMastery.getPoints()+" points to next level");
         }
     }
 
-    private class MatchAdapter extends RecyclerView.Adapter<MatchHistory.MatchHolder>{
-        private List<MatchHistoryInfo> mMatches;
+    private class MasteryAdapter extends RecyclerView.Adapter<ChampionMasteries.MasteryHolder>{
+        private List<ChampMasteryInfo> mMasteries;
 
-        public MatchAdapter(List<MatchHistoryInfo> matches){
-            mMatches = matches;
+        public MasteryAdapter(List<ChampMasteryInfo> masteries){
+            mMasteries = masteries;
         }
 
         @Override
-        public MatchHistory.MatchHolder onCreateViewHolder(ViewGroup parent, int viewTyper){
+        public MasteryHolder onCreateViewHolder(ViewGroup parent, int viewTyper){
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-            View view = layoutInflater.inflate(R.layout.list_item_matches, parent, false);
-            return new MatchHistory.MatchHolder(view);
+            View view = layoutInflater.inflate(R.layout.item_list_masteries, parent, false);
+            return new MasteryHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(MatchHistory.MatchHolder holder, int position){
-            MatchHistoryInfo matchHistoryInfo = mMatches.get(position);
-            holder.bindMatch(matchHistoryInfo);
+        public void onBindViewHolder(MasteryHolder holder, int position){
+            ChampMasteryInfo champMasteryInfo = mMasteries.get(position);
+            holder.bindMastery(champMasteryInfo);
         }
 
         @Override
         public int getItemCount(){
-            return mMatches.size();
+            return mMasteries.size();
         }
     }
 
