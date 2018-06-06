@@ -14,22 +14,26 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position){
         if(position == 0){
             return new ChampionMasteries();
-        }else{
+        }else if(position == 1){
             return new MatchHistory();
+        }else{
+            return new Profile();
         }
     }
 
     @Override
     public int getCount(){
-        return 2;
+        return 3;
     }
 
     @Override
     public CharSequence getPageTitle(int position){
         if(position == 0){
             return "Champion Masteries";
-        }else{
+        }else if(position == 1){
             return "Match History";
+        }else{
+            return "Profile";
         }
     }
 }
