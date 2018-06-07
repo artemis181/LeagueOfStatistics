@@ -15,6 +15,13 @@ public class ChampMasteryInfo {
         mPointsLeft = pointsLeft;
     }
 
+    public ChampMasteryInfo(String[] values){
+        mName = values[0];
+        mEpithet = values[1];
+        mMastery = Integer.parseInt(values[2]);
+        mPointsLeft = Integer.parseInt(values[3]);
+    }
+
     public String getName(){
         return mName;
     }

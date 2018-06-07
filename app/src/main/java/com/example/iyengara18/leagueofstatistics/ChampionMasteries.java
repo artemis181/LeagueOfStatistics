@@ -35,14 +35,19 @@ public class ChampionMasteries extends Fragment {
         mRecyclerView = rootView.findViewById(R.id.recyclered);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        updateUI();
+        ArrayList values = new ArrayList();
+        //there will be a list of 10 matches
+        String[] valOne = {"Malphite", "Shard of the Monolith", "6", "0"};
+        values.add(valOne);
+
+        updateUI(values);
 
         return rootView;
     }
 
-    private void updateUI(){
+    private void updateUI(ArrayList values){
         List<ChampMasteryInfo> mastery = new ArrayList<>();
-        mastery.add(new ChampMasteryInfo("Malphite", "Shard of the Monolith", 6, 0));
+        mastery.add(new ChampMasteryInfo((String[])values.get(0)));
         mastery.add(new ChampMasteryInfo("Vel'koz", "The Eye of the Void",  7, 0));
         mastery.add(new ChampMasteryInfo("Leona", "The Radiant Dawn", 4, 374));
         masteryAdapter = new MasteryAdapter(mastery);
