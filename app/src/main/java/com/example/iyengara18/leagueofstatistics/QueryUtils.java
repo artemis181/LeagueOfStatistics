@@ -65,9 +65,15 @@ public final class QueryUtils {
         }
 
         // Return the list of earthquakes
-        return earthquakes;
+        return champMasteries;
     }
-    public static List<Earthquake> fetchEarthquakeData(String requestUrl){
+
+    public static ArrayList extractPlayerData(String JSONResponse){
+        ArrayList playerData = new ArrayList();
+        return playerData;
+    }
+
+    public static List<ChampMasteryInfo> fetchMasteryData(String requestUrl){
         URL url = createUrl(requestUrl);
         String JSONResponse = null;
         try{
@@ -75,8 +81,20 @@ public final class QueryUtils {
         }catch(IOException e){
             Log.e(LOG_TAG, "Error creating connection");
         }
-        List<Earthquake> earthquakes = extractEarthquakes(JSONResponse);
-        return earthquakes;
+        List<ChampMasteryInfo> champMasteries = extractMasteryInfo(JSONResponse);
+        return champMasteries;
+    }
+
+    public static List fetchPlayerData(String requestUrl){
+        URL url = createUrl(requestUrl);
+        String JSONResponse = null;
+        try{
+            JSONResponse = makeHttpRequest(url);
+        }catch(IOException e){
+            Log.e(LOG_TAG, "Error creating connection");
+        }
+        List playerData = extractPlayerData(JSONResponse);
+        return playerData;
     }
 
     private static URL createUrl(String urlString){
