@@ -1,6 +1,6 @@
 package com.example.iyengara18.leagueofstatistics;
 
-import.android.util.Log;
+import android.util.Log;
 import android.widget.ImageView;
 
 import org.json.JSONArray;
@@ -35,7 +35,7 @@ public final class QueryUtils {
     public static ArrayList<ChampMasteryInfo> extractMasteryInfo(String JSONResponse) {
 
         // Create an empty ArrayList that we can start adding matches to
-        ArrayList<ChampMasteryInfo> earthquakes = new ArrayList<>();
+        ArrayList<ChampMasteryInfo> champMasteries = new ArrayList<>();
 
         try {
             JSONObject root = new JSONObject(JSONResponse);
@@ -51,8 +51,8 @@ public final class QueryUtils {
                 loc = earthObj.getString("place");
                 sec = earthObj.getLong("time");
                 url = earthObj.getString("url");
-                ChampMasteryInfo sampel = new ChampMasteryInfo(mag, loc, sec, url);
-                earthquakes.add(sampel);
+                ChampMasteryInfo mastery = new ChampMasteryInfo(loc, loc, 6, 9);
+                champMasteries.add(mastery);
             }
             // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and
             // build up a list of Earthquake objects with the corresponding data.
