@@ -73,6 +73,11 @@ public final class QueryUtils {
         return playerData;
     }
 
+    public static ArrayList<MatchHistoryInfo> extractMatchData(String JSONresponse){
+        ArrayList<MatchHistoryInfo> matchHistory = new ArrayList<>();
+        return matchHistory;
+    }
+
     public static List<ChampMasteryInfo> fetchMasteryData(String requestUrl){
         URL url = createUrl(requestUrl);
         String JSONResponse = null;
@@ -95,6 +100,18 @@ public final class QueryUtils {
         }
         List playerData = extractPlayerData(JSONResponse);
         return playerData;
+    }
+
+    public static List<MatchHistoryInfo> fetchMatchData(String requestUrl){
+        URL url = createUrl(requestUrl);
+        String JSONResponse = null;
+        try{
+            JSONResponse = makeHttpRequest(url);
+        }catch(IOException e){
+            Log.e(LOG_TAG, "Error creating connection");
+        }
+        List<MatchHistoryInfo> matchHistory = extractMatchData(JSONResponse);
+        return matchHistory;
     }
 
     private static URL createUrl(String urlString){
@@ -125,7 +142,7 @@ public final class QueryUtils {
                 Log.e(LOG_TAG, "Error response code:" + urlConnection.getResponseCode());
             }
         }catch(IOException e){
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results");
+            Log.e(LOG_TAG, "Problem retrieving the JSON results");
         }finally{
             if(urlConnection != null){
                 urlConnection.disconnect();
