@@ -40,18 +40,12 @@ public final class QueryUtils {
         try {
             JSONObject root = new JSONObject(JSONResponse);
             JSONArray eq = root.getJSONArray("features");
-            double mag = 0.0;
-            String loc = "";
-            long sec = 0;
-            String url = "";
+            String name = "";
             for(int i=0;i<eq.length();i++){
                 JSONObject eObj = eq.getJSONObject(i);
                 JSONObject earthObj = eObj.getJSONObject("properties");
-                mag = earthObj.getDouble("mag");
-                loc = earthObj.getString("place");
-                sec = earthObj.getLong("time");
-                url = earthObj.getString("url");
-                ChampMasteryInfo mastery = new ChampMasteryInfo(loc, loc, 6, 9);
+                name = earthObj.getString("place");
+                ChampMasteryInfo mastery = new ChampMasteryInfo(name, name, 6, 9);
                 champMasteries.add(mastery);
             }
             // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and

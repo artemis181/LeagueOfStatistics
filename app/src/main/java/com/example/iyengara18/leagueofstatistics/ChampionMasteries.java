@@ -1,6 +1,8 @@
 package com.example.iyengara18.leagueofstatistics;
 
 
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,9 +19,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChampionMasteries extends Fragment {
+public class ChampionMasteries extends Fragment implements LoaderManager.LoaderCallbacks<List<ChampMasteryInfo>>{
     private RecyclerView mRecyclerView;
     private MasteryAdapter masteryAdapter;
+    private String apiKey;
+    private static final int CHAMP_MASTERY_ID = 1;
+    private static String REQUEST_URL;
 
 
     public ChampionMasteries() {
@@ -47,11 +52,34 @@ public class ChampionMasteries extends Fragment {
 
     private void updateUI(ArrayList values){
         List<ChampMasteryInfo> mastery = new ArrayList<>();
-        mastery.add(new ChampMasteryInfo((String[])values.get(0)));
+        for(int i=0;i<values.size();i++){
+            mastery.add(new ChampMasteryInfo((String[])values.get(i)));
+        }
         mastery.add(new ChampMasteryInfo("Vel'koz", "The Eye of the Void",  7, 0));
         mastery.add(new ChampMasteryInfo("Leona", "The Radiant Dawn", 4, 374));
         masteryAdapter = new MasteryAdapter(mastery);
         mRecyclerView.setAdapter(masteryAdapter);
+
+        getLoaderManager().initLoader(CHAMP_MASTERY_ID, null, this);
+    }
+    @Override
+    public Loader<List<ChampMasteryInfo>> onCreateLoader(int i, Bundle bundle) {
+        return new MasteryLoader(this.getContext(), REQUEST_URL);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<ChampMasteryInfo>> loader, List<ChampMasteryInfo> earthquakes){
+        if(earthquakes != null && !earthquakes.isEmpty()){
+            masteryAdapter.setData(earthquakes);
+            masteryAdapter.notifyDataSetChanged();
+        }else{
+            mRecyclerView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<ChampMasteryInfo>> loader){
+        masteryAdapter.setData(new ArrayList<ChampMasteryInfo>());
     }
 
     private class MasteryHolder extends RecyclerView.ViewHolder{
@@ -82,6 +110,10 @@ public class ChampionMasteries extends Fragment {
         private List<ChampMasteryInfo> mMasteries;
 
         public MasteryAdapter(List<ChampMasteryInfo> masteries){
+            mMasteries = masteries;
+        }
+
+        public void setData(List<ChampMasteryInfo> masteries){
             mMasteries = masteries;
         }
 

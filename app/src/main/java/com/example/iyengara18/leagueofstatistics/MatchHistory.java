@@ -21,6 +21,7 @@ import java.util.List;
 public class MatchHistory extends Fragment {
     private RecyclerView mRecyclerView;
     private MatchAdapter matchAdapter;
+    private String apiKey;
 
     public MatchHistory() {
         // Required empty public constructor
