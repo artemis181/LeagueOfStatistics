@@ -38,14 +38,13 @@ public final class QueryUtils {
         ArrayList<ChampMasteryInfo> champMasteries = new ArrayList<>();
 
         try {
-            JSONObject root = new JSONObject(JSONResponse);
-            JSONArray eq = root.getJSONArray("features");
-            String name = "";
-            for(int i=0;i<eq.length();i++){
-                JSONObject eObj = eq.getJSONObject(i);
-                JSONObject earthObj = eObj.getJSONObject("properties");
-                name = earthObj.getString("place");
-                ChampMasteryInfo mastery = new ChampMasteryInfo(name, name, 6, 9);
+            JSONArray masteryArray = new JSONArray(JSONResponse);
+            String name="fill";
+            int masteryLevel;
+            for(int i=0;i<3;i++){
+                JSONObject masteryObj = masteryArray.getJSONObject(i);
+                masteryLevel = masteryObj.getInt("championLevel");
+                ChampMasteryInfo mastery = new ChampMasteryInfo(name, name, masteryLevel, 0);
                 champMasteries.add(mastery);
             }
             // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and
@@ -55,7 +54,7 @@ public final class QueryUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the Mastery JSON results", e);
         }
 
         // Return the list of earthquakes

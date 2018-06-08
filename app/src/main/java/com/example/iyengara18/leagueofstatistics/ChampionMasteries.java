@@ -1,10 +1,10 @@
 package com.example.iyengara18.leagueofstatistics;
 
 
-import android.app.LoaderManager;
-import android.content.Loader;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,7 +24,7 @@ public class ChampionMasteries extends Fragment implements LoaderManager.LoaderC
     private MasteryAdapter masteryAdapter;
     private String apiKey;
     private static final int CHAMP_MASTERY_ID = 1;
-    private static String REQUEST_URL;
+    private static String REQUEST_URL="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/48132143?api_key=RGAPI-b4b01bb7-7510-4f29-84b7-f9b73158c1b2";
 
 
     public ChampionMasteries() {
@@ -57,23 +57,24 @@ public class ChampionMasteries extends Fragment implements LoaderManager.LoaderC
         }
         mastery.add(new ChampMasteryInfo("Vel'koz", "The Eye of the Void",  7, 0));
         mastery.add(new ChampMasteryInfo("Leona", "The Radiant Dawn", 4, 374));
-        masteryAdapter = new MasteryAdapter(mastery);
+        masteryAdapter = new MasteryAdapter(new ArrayList<ChampMasteryInfo>());
         mRecyclerView.setAdapter(masteryAdapter);
 
         getLoaderManager().initLoader(CHAMP_MASTERY_ID, null, this);
     }
+
     @Override
     public Loader<List<ChampMasteryInfo>> onCreateLoader(int i, Bundle bundle) {
         return new MasteryLoader(this.getContext(), REQUEST_URL);
     }
 
     @Override
-    public void onLoadFinished(Loader<List<ChampMasteryInfo>> loader, List<ChampMasteryInfo> earthquakes){
-        if(earthquakes != null && !earthquakes.isEmpty()){
-            masteryAdapter.setData(earthquakes);
+    public void onLoadFinished(Loader<List<ChampMasteryInfo>> loader, List<ChampMasteryInfo> masteries){
+        if(masteries != null && !masteries.isEmpty()){
+            masteryAdapter.setData(masteries);
             masteryAdapter.notifyDataSetChanged();
         }else{
-            mRecyclerView.setVisibility(View.GONE);
+            //mRecyclerView.setVisibility(View.GONE);
         }
     }
 
