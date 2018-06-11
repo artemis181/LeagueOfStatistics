@@ -29,10 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v){git add .
-        git commit -m "working on JSON"
-        git push origin master
-
+    public void onClick(View v){
         name = sumName.getText().toString();
         getSupportLoaderManager().initLoader(SUMMONER_ID, null,this);
         Intent i = Info_Tab_Layout.newIntent(MainActivity.this, name);
