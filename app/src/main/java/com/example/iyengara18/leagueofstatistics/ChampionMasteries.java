@@ -22,9 +22,10 @@ import java.util.List;
 public class ChampionMasteries extends Fragment implements LoaderManager.LoaderCallbacks<List<ChampMasteryInfo>>{
     private RecyclerView mRecyclerView;
     private MasteryAdapter masteryAdapter;
-    private String apiKey;
+    private static String apiKey="RGAPI-11da670b-199b-40d1-a137-ab2455de9edd";
     private static final int CHAMP_MASTERY_ID = 1;
-    private static String REQUEST_URL="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/48132143?api_key=RGAPI-b4b01bb7-7510-4f29-84b7-f9b73158c1b2";
+    private static int summonerId=48132143;
+    private static String REQUEST_URL="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/"+summonerId+"api_key="+apiKey;
 
 
     public ChampionMasteries() {
