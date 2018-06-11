@@ -15,6 +15,7 @@ public class Info_Tab_Layout extends AppCompatActivity {
     SampleFragmentPagerAdapter fragAdapt;
     TextView name;
     private static final String EXTRA_SUMNAME = "com.example.iyengara18.leagueofstatistics";
+    String summonerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class Info_Tab_Layout extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(vPager);
         name = findViewById(R.id.nameView);
+        summonerId=getIntent().getStringExtra(EXTRA_SUMNAME);
         name.setText(getIntent().getStringExtra(EXTRA_SUMNAME));
     }
 

@@ -22,9 +22,9 @@ import java.util.List;
 public class ChampionMasteries extends Fragment implements LoaderManager.LoaderCallbacks<List<ChampMasteryInfo>>{
     private RecyclerView mRecyclerView;
     private MasteryAdapter masteryAdapter;
-    private String apiKey;
+    private static final String API_KEY="RGAPI-2c7a7470-00e3-4e9f-88ac-936d052526d4";
     private static final int CHAMP_MASTERY_ID = 1;
-    private static String REQUEST_URL="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/48132143?api_key=RGAPI-b4b01bb7-7510-4f29-84b7-f9b73158c1b2";
+    private static String REQUEST_MASTERY_URL="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/"+QueryUtils.summonerId+"?api_key="+API_KEY;
 
 
     public ChampionMasteries() {
@@ -40,23 +40,12 @@ public class ChampionMasteries extends Fragment implements LoaderManager.LoaderC
         mRecyclerView = rootView.findViewById(R.id.recyclered);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ArrayList values = new ArrayList();
-        //there will be a list of 10 matches
-        String[] valOne = {"Malphite", "Shard of the Monolith", "6", "0"};
-        values.add(valOne);
-
-        updateUI(values);
+        updateUI();
 
         return rootView;
     }
 
-    private void updateUI(ArrayList values){
-        List<ChampMasteryInfo> mastery = new ArrayList<>();
-        for(int i=0;i<values.size();i++){
-            mastery.add(new ChampMasteryInfo((String[])values.get(i)));
-        }
-        mastery.add(new ChampMasteryInfo("Vel'koz", "The Eye of the Void",  7, 0));
-        mastery.add(new ChampMasteryInfo("Leona", "The Radiant Dawn", 4, 374));
+    private void updateUI(){
         masteryAdapter = new MasteryAdapter(new ArrayList<ChampMasteryInfo>());
         mRecyclerView.setAdapter(masteryAdapter);
 
@@ -65,7 +54,7 @@ public class ChampionMasteries extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public Loader<List<ChampMasteryInfo>> onCreateLoader(int i, Bundle bundle) {
-        return new MasteryLoader(this.getContext(), REQUEST_URL);
+        return new MasteryLoader(this.getContext(), REQUEST_MASTERY_URL);
     }
 
     @Override

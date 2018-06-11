@@ -21,6 +21,8 @@ import java.util.List;
 
 public final class QueryUtils {
 
+    public static int summonerId=48132143;
+
     final static String LOG_TAG = MainActivity.class.getSimpleName();
 
     /** Sample JSON response for a USGS query */
@@ -41,10 +43,12 @@ public final class QueryUtils {
             JSONArray masteryArray = new JSONArray(JSONResponse);
             String name="fill";
             int masteryLevel;
-            for(int i=0;i<3;i++){
+            int pointsLeft;
+            for(int i=0;i<10;i++){
                 JSONObject masteryObj = masteryArray.getJSONObject(i);
                 masteryLevel = masteryObj.getInt("championLevel");
-                ChampMasteryInfo mastery = new ChampMasteryInfo(name, name, masteryLevel, 0);
+                pointsLeft = masteryObj.getInt("championPointsUntilNextLevel");
+                ChampMasteryInfo mastery = new ChampMasteryInfo(name, name, masteryLevel, pointsLeft);
                 champMasteries.add(mastery);
             }
             // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and
@@ -65,6 +69,14 @@ public final class QueryUtils {
         ArrayList playerData = new ArrayList();
         return playerData;
     }
+    public static void extractSummonerId(String JSONResponse){
+        JSONObject playerInfo = new JSONObject();
+        try{
+            summonerId = playerInfo.getInt("id");
+        }catch(JSONException e) {
+            Log.e("QueryUtils", "Problem parsing summoner id results");
+        }
+    }
 
     public static ArrayList<MatchHistoryInfo> extractMatchData(String JSONresponse){
         ArrayList<MatchHistoryInfo> matchHistory = new ArrayList<>();
@@ -81,6 +93,17 @@ public final class QueryUtils {
         }
         List<ChampMasteryInfo> champMasteries = extractMasteryInfo(JSONResponse);
         return champMasteries;
+    }
+
+    public static void fetchSummonerId(String requestUrl){
+        URL url = createUrl(requestUrl);
+        String JSONResponse = null;
+        try{
+            JSONResponse = makeHttpRequest(url);
+        }catch(IOException e){
+            Log.e(LOG_TAG, "Error creating connection");
+        }
+        extractSummonerId(JSONResponse);
     }
 
     public static List fetchPlayerData(String requestUrl){
