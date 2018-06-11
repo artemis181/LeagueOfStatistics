@@ -1,17 +1,20 @@
 package com.example.iyengara18.leagueofstatistics;
 
 import android.content.Intent;
-import android.icu.text.IDNA;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Integer>{
     EditText sumName;
     Button begin;
     String name;
+    private static final int SUMMONER_ID=1;
     private static final String API_KEY = "RGAPI-2c7a7470-00e3-4e9f-88ac-936d052526d4";
     private static String REQUEST_SUMMONER_ID_URL = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/";
             private static String REQUEST_SUMMONER_ID_TWO = "?api_key=";
@@ -26,10 +29,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v){
+    public void onClick(View v){git add .
+        git commit -m "working on JSON"
+        git push origin master
+
         name = sumName.getText().toString();
-        QueryUtils.fetchSummonerId(REQUEST_SUMMONER_ID_URL+name+REQUEST_SUMMONER_ID_TWO+API_KEY);
+        getSupportLoaderManager().initLoader(SUMMONER_ID, null,this);
         Intent i = Info_Tab_Layout.newIntent(MainActivity.this, name);
         startActivity(i);
+    }
+
+    @Override
+    public Loader<Integer> onCreateLoader(int i, Bundle bundle) {
+        return new SummonerIdLoader(this, REQUEST_SUMMONER_ID_URL+name+REQUEST_SUMMONER_ID_TWO+API_KEY);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Integer> loader, Integer x){
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Integer> loader){
     }
 }
