@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button begin;
     String name;
     private static final int SUMMONER_ID=1;
-    private static final String API_KEY = "RGAPI-2c7a7470-00e3-4e9f-88ac-936d052526d4";
+    private static final String API_KEY = "RGAPI-47cbc5f0-7cbb-43ea-927b-f41a433ea0c6";
     private static String REQUEST_SUMMONER_ID_URL = "https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/";
             private static String REQUEST_SUMMONER_ID_TWO = "?api_key=";
 

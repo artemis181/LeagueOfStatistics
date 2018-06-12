@@ -21,7 +21,8 @@ import java.util.List;
 
 public final class QueryUtils {
 
-    public static int summonerId=48132143;
+    public static int summonerId;
+    public static int accountId;
 
     final static String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -73,6 +74,7 @@ public final class QueryUtils {
         JSONObject playerInfo = new JSONObject();
         try{
             summonerId = playerInfo.getInt("id");
+            accountId = playerInfo.getInt("accountId");
         }catch(JSONException e) {
             Log.e("QueryUtils", "Problem parsing summoner id results");
         }

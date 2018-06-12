@@ -22,7 +22,7 @@ import java.util.List;
 public class ChampionMasteries extends Fragment implements LoaderManager.LoaderCallbacks<List<ChampMasteryInfo>>{
     private RecyclerView mRecyclerView;
     private MasteryAdapter masteryAdapter;
-    private static final String API_KEY="RGAPI-2c7a7470-00e3-4e9f-88ac-936d052526d4";
+    private static final String API_KEY="RGAPI-47cbc5f0-7cbb-43ea-927b-f41a433ea0c6";
     private static final int CHAMP_MASTERY_ID = 1;
     private static String REQUEST_MASTERY_URL="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/"+QueryUtils.summonerId+"?api_key="+API_KEY;
 
@@ -59,7 +59,10 @@ public class ChampionMasteries extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(Loader<List<ChampMasteryInfo>> loader, List<ChampMasteryInfo> masteries){
-        if(masteries != null && !masteries.isEmpty()){
+        if(masteries != null && !masteries.isEmpty()){git add .
+            git commit -m "working on JSON"
+            git push origin master
+
             masteryAdapter.setData(masteries);
             masteryAdapter.notifyDataSetChanged();
         }else{
