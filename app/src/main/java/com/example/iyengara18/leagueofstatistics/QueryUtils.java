@@ -56,7 +56,8 @@ public final class QueryUtils {
                 champId = masteryObj.getInt("championId");
                 REQUEST_CHAMP_URL = "https://na1.api.riotgames.com/lol/static-data/v3/champions/"+champId+"?locale=en_US&api_key="+API_KEY;
                 String champJSON = fetchChampName(REQUEST_CHAMP_URL);
-                extractChampName(champJSON);
+                name = (String)extractChampName(champJSON).get(0);
+                epithet = (String)extractChampName(champJSON).get(1);
                 ChampMasteryInfo mastery = new ChampMasteryInfo(name, epithet, masteryLevel, pointsLeft);
                 champMasteries.add(mastery);
             }
@@ -95,12 +96,12 @@ public final class QueryUtils {
         return playerData;
     }
     public static void extractSummonerId(String JSONResponse){
-        JSONObject playerInfo = new JSONObject();
         try{
+            JSONObject playerInfo = new JSONObject(JSONResponse);
             summonerId = playerInfo.getInt("id");
             accountId = playerInfo.getInt("accountId");
         }catch(JSONException e) {
-            Log.e("QueryUtils", "Problem parsing summoner id results");
+            Log.e("QueryUtils", "Problem parsing summoner id results"+JSONResponse);
         }
     }
 

@@ -24,7 +24,6 @@ public class ChampionMasteries extends Fragment implements LoaderManager.LoaderC
     private MasteryAdapter masteryAdapter;
     private static final String API_KEY="RGAPI-47cbc5f0-7cbb-43ea-927b-f41a433ea0c6";
     private static final int CHAMP_MASTERY_ID = 1;
-    private static final int CHAMP_NAME_ID = 2;
     private static String REQUEST_MASTERY_URL="https://na1.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/"+QueryUtils.summonerId+"?api_key="+API_KEY;
 
 
@@ -51,7 +50,6 @@ public class ChampionMasteries extends Fragment implements LoaderManager.LoaderC
         mRecyclerView.setAdapter(masteryAdapter);
 
         getLoaderManager().initLoader(CHAMP_MASTERY_ID, null, this);
-        getLoaderManager().initLoader(CHAMP_NAME_ID, null, this);
     }
 
     @Override
