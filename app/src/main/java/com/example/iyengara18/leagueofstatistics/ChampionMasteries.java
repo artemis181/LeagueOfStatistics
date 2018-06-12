@@ -59,10 +59,7 @@ public class ChampionMasteries extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(Loader<List<ChampMasteryInfo>> loader, List<ChampMasteryInfo> masteries){
-        if(masteries != null && !masteries.isEmpty()){git add .
-            git commit -m "working on JSON"
-            git push origin master
-
+        if(masteries != null && !masteries.isEmpty()){
             masteryAdapter.setData(masteries);
             masteryAdapter.notifyDataSetChanged();
         }else{
