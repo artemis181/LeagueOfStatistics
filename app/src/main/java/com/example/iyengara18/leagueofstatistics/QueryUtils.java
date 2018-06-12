@@ -23,6 +23,8 @@ public final class QueryUtils {
 
     public static int summonerId;
     public static int accountId;
+    private static String REQUEST_CHAMP_URL;
+    private static final String API_KEY = "RGAPI-47cbc5f0-7cbb-43ea-927b-f41a433ea0c6";
 
     final static String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -43,13 +45,19 @@ public final class QueryUtils {
         try {
             JSONArray masteryArray = new JSONArray(JSONResponse);
             String name="fill";
+            String epithet="fill";
             int masteryLevel;
             int pointsLeft;
+            int champId;
             for(int i=0;i<10;i++){
                 JSONObject masteryObj = masteryArray.getJSONObject(i);
                 masteryLevel = masteryObj.getInt("championLevel");
                 pointsLeft = masteryObj.getInt("championPointsUntilNextLevel");
-                ChampMasteryInfo mastery = new ChampMasteryInfo(name, name, masteryLevel, pointsLeft);
+                champId = masteryObj.getInt("championId");
+                REQUEST_CHAMP_URL = "https://na1.api.riotgames.com/lol/static-data/v3/champions/"+champId+"?locale=en_US&api_key="+API_KEY;
+                String champJSON = fetchChampName(REQUEST_CHAMP_URL);
+                extractChampName(champJSON);
+                ChampMasteryInfo mastery = new ChampMasteryInfo(name, epithet, masteryLevel, pointsLeft);
                 champMasteries.add(mastery);
             }
             // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and
@@ -64,6 +72,22 @@ public final class QueryUtils {
 
         // Return the list of earthquakes
         return champMasteries;
+    }
+
+    public static ArrayList extractChampName(String JSONResponse){
+        String champName="";
+        String champEpithet="";
+        ArrayList champInfo = new ArrayList();
+        JSONObject champ = new JSONObject();
+        try{
+            champName = champ.getString("name");
+            champEpithet = champ.getString("title");
+        }catch(JSONException e){
+            Log.e("QueryUtils", "Problem parsing the champ results");
+        }
+        champInfo.add(champName);
+        champInfo.add(champEpithet);
+        return champInfo;
     }
 
     public static ArrayList extractPlayerData(String JSONResponse){
@@ -106,6 +130,17 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Error creating connection");
         }
         extractSummonerId(JSONResponse);
+    }
+
+    public static String fetchChampName(String requestUrl){
+        URL url = createUrl(requestUrl);
+        String JSONResponse = null;
+        try{
+            JSONResponse = makeHttpRequest(url);
+        }catch(IOException e){
+            Log.e(LOG_TAG, "Error creating connection");
+        }
+        return JSONResponse;
     }
 
     public static List fetchPlayerData(String requestUrl){
